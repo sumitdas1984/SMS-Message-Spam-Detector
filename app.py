@@ -15,7 +15,7 @@ def predict():
 	pred = sp.classify(str(sms_text))[0]
 	output = {}
 	if pred == 0:
-		output['class'] = 'non-spam'
+		output['class'] = 'ham'
 	else:
 		output['class'] = 'spam'
 	return jsonify(output)
