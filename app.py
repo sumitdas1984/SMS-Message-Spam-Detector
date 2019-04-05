@@ -10,13 +10,15 @@ app = Flask(__name__)
 
 @app.route('/predict',methods=['POST'])
 def predict():
-    sms_text = str(request.args.get('sms'))
-    print('sms: '+sms_text)
-    output = {}
-    output['class'] = sp.classify(str(sms_text))
-    d1 = json.dumps(output)
-    output = json.loads(output)
-    return jsonify(output)
+	sms_text = str(request.args.get('sms'))
+	print('sms: '+sms_text)
+	pred = sp.classify(str(sms_text))[0]
+	output = {}
+	if pred == 0:
+		output['class'] = 'non-spam'
+	else:
+		output['class'] = 'spam'
+	return jsonify(output)
 
 
 if __name__ == '__main__':
